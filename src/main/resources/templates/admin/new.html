@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New User</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .button:hover {
+            background-color: #3e8e41;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            transform: translateY(4px);
+        }
+        .role-checkbox {
+            display: inline-block;
+            margin-right: 10px; /* Расстояние между элементами */
+        }
+    </style>
+</head>
+<body>
+<h1>Create New User</h1>
+<form th:action="@{/admin}" th:object="${user}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" />
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+    <br/>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" th:field="*{lastName}" />
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+    <br/>
+    <label for="age">Age:</label>
+    <input type="number" id="age" th:field="*{age}" />
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+    <br/>
+    <label for="password">Password:</label>
+    <input type="text" th:field="*{password}" id="password">
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <br/>
+    <label for="roles">Select role:</label>
+    <div th:each="role : ${allRoles}" class="role-checkbox">
+        <input type="checkbox" th:field="*{roles}" th:value="${role.id}" th:checked="${user.roles.contains(role)}" id="role-[[${role.id}]]"/>
+        <label th:for="'role-' + ${role.id}" th:text="${role.name}"></label>
+    </div>
+    <br/>
+    <button type="submit" class="button">Save</button>
+</form>
+<br/>
+<a th:href="@{/admin/users}" class="button">Back to All Users</a>
+</body>
+</html>

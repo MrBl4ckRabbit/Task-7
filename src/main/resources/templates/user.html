@@ -2,10 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .button:hover {
+            background-color: #3e8e41;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            transform: translateY(4px);
+        }
+    </style>
 </head>
 <body>
 <h1>User, welcome spring boot security page!</h1>
+<h1>User Details</h1>
+<p>ID: <span th:text="${user.id}"></span></p>
+<p>Name: <span th:text="${user.name}"></span></p>
+<p>Last Name: <span th:text="${user.lastName}"></span></p>
+<p>Age: <span th:text="${user.age}"></span></p>
 
+<br/>
+<a class="button" href="#" th:href="@{/logout}">Log Out</a>
 
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Details</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .button:hover {
+            background-color: #3e8e41;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+<h1>User Details</h1>
+<div th:if="${user != null}">
+    <p>ID: <span th:text="${user.id}"></span></p>
+    <p>Name: <span th:text="${user.name}"></span></p>
+    <p>Last Name: <span th:text="${user.lastName}"></span></p>
+    <p>Age: <span th:text="${user.age}"></span></p>
+    <p>Roles: <span th:text="${#strings.arrayJoin(user.roles.toArray(), ', ')}"></span></p>
+</div>
+<div th:if="${user == null}">
+    <p>User not found.</p>
+</div>
+<a th:href="@{/admin/editUser/{id}(id=${user.id})}"class="button">Edit</a>
+<form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post" style="display:inline">
+    <input type="hidden" name="_method" value="delete"/>
+    <button type="submit"class="button">Delete</button>
+</form>
+<a th:href="@{/admin/users}"class="button">Back to All Users</a>
+</body>
+</html>
